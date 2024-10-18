@@ -15,8 +15,7 @@ namespace Tic_Tac_Game
         const int N = 3;
         int[,] mas = new int[N, N];
         int flag = 1;
-        int count = 0;
-        bool draw = false;
+
         public Form1()
         {
             InitializeComponent();
@@ -24,16 +23,14 @@ namespace Tic_Tac_Game
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            MessageBox.Show("Игроки ходят по очереди.\r\nНолик считается игроком1\r\nКрестик - игроком 2.\r\nВ первую игру первый ход делается ноликом.\r\nКаждую последующую игру первый ход меняется\r\nна противоположный знак.\r\nНажимать на уже занятую ячейку не стоит.\r\nХороших вам крестико-ноликовых игр.\r\nИ пусть победит сильнейший.\r\n", "Правила игры");
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             user_click(ref flag, button1, 0, 0);
             win_game();
-            count++;
-            if(count==9)
-                draw_game();
+            draw_game();
 
         }
 
@@ -41,77 +38,60 @@ namespace Tic_Tac_Game
         {
             user_click(ref flag, button2, 0, 1);
             win_game();
-            count++;
-            if (count == 9)
-                draw_game();
+            draw_game();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             user_click(ref flag, button3, 0, 2);
             win_game();
-            count++;
-            if (count == 9)
-                draw_game();
+            draw_game();
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
             user_click(ref flag, button4, 1, 0);
             win_game();
-            count++;
-            if (count == 9)
-                draw_game();
+            draw_game();
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
             user_click(ref flag, button5, 1, 1);
             win_game();
-            count++;
-            if (count == 9)
-                draw_game();
+            draw_game();
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
             user_click(ref flag, button6, 1, 2);
             win_game();
-            count++;
-            if (count == 9)
-                draw_game();
+            draw_game();
         }
 
         private void button7_Click(object sender, EventArgs e)
         {
             user_click(ref flag, button7, 2, 0);
             win_game();
-            count++;
-            if (count == 9)
-                draw_game();
+            draw_game();
         }
 
         private void button8_Click(object sender, EventArgs e)
         {
             user_click(ref flag, button8, 2, 1);
             win_game();
-            count++;
-            if (count == 9)
-                draw_game();
+            draw_game();
         }
 
         private void button9_Click(object sender, EventArgs e)
         {
             user_click(ref flag, button9, 2, 2);
             win_game();
-            count++;
-            if (count == 9)
-                draw_game();
+            draw_game();
         }
 
         public void user_click(ref int flag, Button buttonx, int line, int column)
         {
-            label1.Text = "Ошибки не найдены";
             if (mas[line, column] == 0)
             {
                 if (flag == 1)
@@ -126,12 +106,11 @@ namespace Tic_Tac_Game
                     mas[line, column] = flag;
                     flag = 1;
                 }
-                
-
             }
             else
-                label1.Text = "Эта ячейка занята,\n выбери другую";
-
+            {
+                MessageBox.Show("Эта ячейка занята \n выбери другую");               
+            }
         }
 
 
@@ -154,7 +133,7 @@ namespace Tic_Tac_Game
                     else if (mas[j, i] == 2)
                         count4++;                  
                 }
-
+                //проверка на победу в диагоналях
                 if (mas[i, i] == 1)
                     count5++;
                 else if (mas[i, i] == 2)
@@ -166,15 +145,15 @@ namespace Tic_Tac_Game
                 if (count1 == 3 || count3 ==3 || count5==3 ||count7 ==3)
                 {
                    
-                    MessageBox.Show("Победа 1");
-                    draw = true;
+                    MessageBox.Show("Победа игрока 1");
+                    restart_game();
                     break;
 
                 }
                 else if (count2 == 3 || count4 ==3 || count6==3 || count8==3)
                 {
-                    MessageBox.Show("Победа 2");
-                    draw = true;
+                    MessageBox.Show("Победа игрока 2");
+                    restart_game();
                     break;
                 }
             }
@@ -182,10 +161,44 @@ namespace Tic_Tac_Game
 
         public void draw_game()
         {
-            if (draw == false)
+            bool draw = false;
+            for (int i = 0; i < N; i++)
             {
+                for (int j = 0; j < N; j++)
+                {
+                    if (mas[i, j] == 0)
+                        draw = true;
+                }
+            }
+            if (draw == false) {
                 MessageBox.Show("Ничья");
-            }         
+                restart_game();
+            }        
         }
+
+        public void restart_game()
+        {
+            DialogResult res = MessageBox.Show("Начать заново", "", MessageBoxButtons.OKCancel);
+            if (res == DialogResult.OK)
+            {
+                mas = new int[N, N];
+                button1.Text = "";
+                button2.Text = "";
+                button3.Text = "";
+                button4.Text = "";
+                button5.Text = "";
+                button6.Text = "";
+                button7.Text = "";
+                button8.Text = "";
+                button9.Text = "";
+
+
+            }
+            else
+            {
+                Close();
+            }
+        }
+
     }
 }
