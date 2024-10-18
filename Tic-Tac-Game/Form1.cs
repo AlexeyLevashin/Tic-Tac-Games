@@ -28,46 +28,55 @@ namespace Tic_Tac_Game
         private void button1_Click(object sender, EventArgs e)
         {
             user_click(ref flag, button1, 0, 0);
+            win_game();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             user_click(ref flag, button2, 0, 1);
+            win_game();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             user_click(ref flag, button3, 0, 2);
+            win_game();
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
             user_click(ref flag, button4, 1, 0);
+            win_game();
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
             user_click(ref flag, button5, 1, 1);
+            win_game();
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
             user_click(ref flag, button6, 1, 2);
+            win_game();
         }
 
         private void button7_Click(object sender, EventArgs e)
         {
             user_click(ref flag, button7, 2, 0);
+            win_game();
         }
 
         private void button8_Click(object sender, EventArgs e)
         {
             user_click(ref flag, button8, 2, 1);
+            win_game();
         }
 
         private void button9_Click(object sender, EventArgs e)
         {
             user_click(ref flag, button9, 2, 2);
+            win_game();
         }
 
         public void user_click(ref int flag, Button buttonx, int line, int column)
@@ -78,14 +87,16 @@ namespace Tic_Tac_Game
                 if (flag == 1)
                 {
                     buttonx.Text = "O";
+                    mas[line, column] = flag;
                     flag = 2;
                 }
                 else
                 {
                     buttonx.Text = "X";
+                    mas[line, column] = flag;
                     flag = 1;
                 }
-                mas[line, column] = flag;
+                
 
             }
             else
@@ -93,6 +104,50 @@ namespace Tic_Tac_Game
 
         }
 
+
+        public void win_game()
+        {
+            int count5 = 0, count6 = 0, count7 = 0, count8 = 0;
+
+            for (int i = 0; i < N; i++)
+            {
+                int count1 = 0, count2 = 0, count3 = 0, count4 = 0;
+                for (int j = 0; j < N; j++)
+                {
+                    //проверка на победу в строках или столбцах
+                    if (mas[i, j] == 1)
+                        count1++;
+                    else if (mas[i, j] == 2)
+                        count2++;
+                    if (mas[j, i] == 1)
+                        count3++;
+                    else if (mas[j, i] == 2)
+                        count4++;                  
+                }
+
+                if (mas[i, i] == 1)
+                    count5++;
+                else if (mas[i, i] == 2)
+                    count6++;
+                if (mas[N - 1 - i, i] == 1)
+                    count7++; 
+                else if(mas[N - 1 - i, i] == 2)
+                    count8++;
+                if (count1 == 3 || count3 ==3 || count5==3 ||count7 ==3)
+                {
+                   
+                    MessageBox.Show("Победа 1");
+                    //MessageBoxButtons.RetryCancel{ };
+                    break;
+
+                }
+                else if (count2 == 3 || count4 ==3 || count6==3 || count8==3)
+                {
+                    MessageBox.Show("Победа 2");
+                    break;
+                }
+            }
+        }
 
     }
 }
