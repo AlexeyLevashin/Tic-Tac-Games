@@ -15,6 +15,8 @@ namespace Tic_Tac_Game
         const int N = 3;
         int[,] mas = new int[N, N];
         int flag = 1;
+        int count = 0;
+        bool draw = false;
         public Form1()
         {
             InitializeComponent();
@@ -29,54 +31,82 @@ namespace Tic_Tac_Game
         {
             user_click(ref flag, button1, 0, 0);
             win_game();
+            count++;
+            if(count==9)
+                draw_game();
+
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             user_click(ref flag, button2, 0, 1);
             win_game();
+            count++;
+            if (count == 9)
+                draw_game();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             user_click(ref flag, button3, 0, 2);
             win_game();
+            count++;
+            if (count == 9)
+                draw_game();
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
             user_click(ref flag, button4, 1, 0);
             win_game();
+            count++;
+            if (count == 9)
+                draw_game();
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
             user_click(ref flag, button5, 1, 1);
             win_game();
+            count++;
+            if (count == 9)
+                draw_game();
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
             user_click(ref flag, button6, 1, 2);
             win_game();
+            count++;
+            if (count == 9)
+                draw_game();
         }
 
         private void button7_Click(object sender, EventArgs e)
         {
             user_click(ref flag, button7, 2, 0);
             win_game();
+            count++;
+            if (count == 9)
+                draw_game();
         }
 
         private void button8_Click(object sender, EventArgs e)
         {
             user_click(ref flag, button8, 2, 1);
             win_game();
+            count++;
+            if (count == 9)
+                draw_game();
         }
 
         private void button9_Click(object sender, EventArgs e)
         {
             user_click(ref flag, button9, 2, 2);
             win_game();
+            count++;
+            if (count == 9)
+                draw_game();
         }
 
         public void user_click(ref int flag, Button buttonx, int line, int column)
@@ -137,17 +167,25 @@ namespace Tic_Tac_Game
                 {
                    
                     MessageBox.Show("Победа 1");
-                    //MessageBoxButtons.RetryCancel{ };
+                    draw = true;
                     break;
 
                 }
                 else if (count2 == 3 || count4 ==3 || count6==3 || count8==3)
                 {
                     MessageBox.Show("Победа 2");
+                    draw = true;
                     break;
                 }
             }
         }
 
+        public void draw_game()
+        {
+            if (draw == false)
+            {
+                MessageBox.Show("Ничья");
+            }         
+        }
     }
 }
